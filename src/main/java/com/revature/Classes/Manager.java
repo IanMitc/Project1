@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.Classes;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
