@@ -14,5 +14,8 @@ public interface ExpenseDAO {
     List<Expense> getPendingExpenses();
     List<Expense> getExpensesProcessedBy(Manager manager);
     Expense getExpense(int id);
-
+    void saveExpense(Expense expense);
+    void updateExpense(Expense expense);
+    void saveExpenses(List<Expense> expenses);
+    void updateExpenses(List<Expense> expenses);
 }
