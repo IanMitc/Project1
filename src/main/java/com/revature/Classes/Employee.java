@@ -12,7 +12,7 @@ public class Employee {
     private final String password;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idx", nullable = false)
+    @Column(name = "id", nullable = false)
     private int id;
     @Column(name = "name", nullable = false)
     private String name;
