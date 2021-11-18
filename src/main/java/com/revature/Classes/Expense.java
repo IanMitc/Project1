@@ -12,7 +12,7 @@ public class Expense {
     @Column(name = "date_initiated")
     private final Date dateInitiated;
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "initiated_by_idx", nullable = false)
+    @JoinColumn(name = "initiated_by_id", nullable = false)
     private final Employee initiatedBy;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +30,7 @@ public class Expense {
     @Column(name = "pending", nullable = false)
     private boolean pending;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "processed_by_idx")
+    @JoinColumn(name = "processed_by_id")
     private Manager processedBy;
 
     public Expense(double amount, String memo, Employee initiatedBy) {
