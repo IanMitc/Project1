@@ -3,6 +3,7 @@ package com.revature.Classes;
 public class Permissions {
     private static Permissions permissions;
     private static Employee loggedInEmployee;
+
     private Permissions() {
     }
 

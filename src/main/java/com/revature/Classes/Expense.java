@@ -6,41 +6,40 @@ import java.util.Date;
 @Table(name = "expense")
 @Entity
 public class Expense {
+    @Column(name = "amount")
+    private final double amount;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_initiated")
+    private final Date dateInitiated;
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "initiated_by_idx", nullable = false)
+    private final Employee initiatedBy;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private int id;
-
-    @Column(name = "amount")
-    private double amount;
-
     @Column(name = "memo")
     private String memo;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date_initiated")
-    private Date dateInitiated;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_processed")
     private Date dateProcessed;
-
     @Column(name = "processor_memo")
     private String processorMemo;
-
-    @Column(name = "approved", nullable = false)
+    @Column(name = "approved")
     private boolean approved;
-
     @Column(name = "pending", nullable = false)
     private boolean pending;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "initiated_by_idx", nullable = false)
-    private Employee initiatedBy;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "processed_by_idx")
     private Manager processedBy;
+
+    public Expense(double amount, String memo, Employee initiatedBy) {
+        this.amount = amount;
+        this.memo = memo;
+        this.initiatedBy = initiatedBy;
+        this.pending = true;
+        dateInitiated = new Date();
+    }
 
     public Manager getProcessedBy() {
         return processedBy;
@@ -50,11 +49,11 @@ public class Expense {
         return initiatedBy;
     }
 
-    public boolean getPending() {
+    public boolean isPending() {
         return pending;
     }
 
-    public boolean getApproved() {
+    public boolean isApproved() {
         return approved;
     }
 
@@ -88,6 +87,22 @@ public class Expense {
 
     public int getId() {
         return id;
+    }
+
+    public void approveExpense(Manager processedBy, String processorMemo) {
+        this.approved = true;
+        this.pending = false;
+        this.processorMemo = processorMemo;
+        this.processedBy = processedBy;
+        this.dateProcessed = new Date();
+    }
+
+    public void denyExpense(Manager processedBy, String processorMemo) {
+        this.approved = false;
+        this.pending = false;
+        this.processorMemo = processorMemo;
+        this.processedBy = processedBy;
+        this.dateProcessed = new Date();
     }
 
 }
