@@ -1,17 +1,12 @@
 package com.revature.Classes;
 
 public class Permissions {
-    public enum UserRole {
-        EMPLOYEE,
-        MANAGER
-    }
     private static Permissions permissions;
     private static Employee loggedInEmployee;
-
     private Permissions() {
     }
 
-    public static Permissions getPermissions(){
+    public static Permissions getPermissions() {
         if (permissions == null) {
             permissions = new Permissions();
         }
@@ -19,7 +14,7 @@ public class Permissions {
     }
 
     public boolean login(Employee employee, String attempted_password) {
-        if (employee.checkPassword(attempted_password)){
+        if (employee.checkPassword(attempted_password)) {
             loggedInEmployee = employee;
             return true;
         } else {
@@ -34,5 +29,10 @@ public class Permissions {
 
     public UserRole getCurrentRole() {
         return loggedInEmployee.getUserRole();
+    }
+
+    public enum UserRole {
+        EMPLOYEE,
+        MANAGER
     }
 }
