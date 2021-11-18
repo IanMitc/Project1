@@ -5,26 +5,35 @@ import java.util.List;
 
 @Entity
 public class Employee {
+    @Enumerated
+    @Column(name = "user_role", nullable = false)
+    private final Permissions.UserRole userRole;
+    @Column(name = "password", nullable = false)
+    private final String password;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idx", nullable = false)
     private int id;
-
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "username", nullable = false, unique = true)
     private String username;
-
-    @Enumerated
-    @Column(name = "user_role", nullable = false)
-    private Permissions.UserRole userRole;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
     @OneToMany(mappedBy = "initiatedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expenses;
+
+    public Employee(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.userRole = Permissions.UserRole.EMPLOYEE;
+    }
+
+    public Employee(String name, String username, String password, Permissions.UserRole userRole) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.userRole = userRole;
+    }
 
     public List<Expense> getExpenses() {
         return expenses;
