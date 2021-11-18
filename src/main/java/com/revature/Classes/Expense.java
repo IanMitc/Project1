@@ -1,5 +1,7 @@
 package com.revature.Classes;
 
+import com.revature.Data.EmployeeDAO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -37,6 +39,16 @@ public class Expense {
         this.amount = amount;
         this.memo = memo;
         this.initiatedBy = initiatedBy;
+        this.pending = true;
+        dateInitiated = new Date();
+    }
+
+    //TODO: NOT WORKING! Implement fully once DAOs are implemented
+    public Expense(double amount, String memo, int employeeID) {
+        EmployeeDAO employeeDAO = DAOFactory.getEmployeeDao();
+        this.amount = amount;
+        this.memo = memo;
+        this.initiatedBy = employeeDAO.getEmployee(employeeID);
         this.pending = true;
         dateInitiated = new Date();
     }
