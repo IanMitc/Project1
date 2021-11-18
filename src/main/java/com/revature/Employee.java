@@ -26,10 +26,6 @@ public class Employee {
     @OneToMany(mappedBy = "initiatedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expenses;
 
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
-
     public List<Expense> getExpenses() {
         return expenses;
     }

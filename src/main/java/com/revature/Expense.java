@@ -34,11 +34,11 @@ public class Expense {
     @Column(name = "pending", nullable = false)
     private boolean pending;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "initiated_by_idx", nullable = false)
     private Employee initiatedBy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "processed_by_idx")
     private Manager processedBy;
 
@@ -46,16 +46,8 @@ public class Expense {
         return processedBy;
     }
 
-    public void setProcessedBy(Manager processedBy) {
-        this.processedBy = processedBy;
-    }
-
     public Employee getInitiatedBy() {
         return initiatedBy;
-    }
-
-    public void setProcessorMemo(String processorMemo) {
-        this.processorMemo = processorMemo;
     }
 
     public boolean getPending() {
@@ -68,6 +60,10 @@ public class Expense {
 
     public String getProcessorMemo() {
         return processorMemo;
+    }
+
+    public void setProcessorMemo(String processorMemo) {
+        this.processorMemo = processorMemo;
     }
 
     public Date getDateProcessed() {
