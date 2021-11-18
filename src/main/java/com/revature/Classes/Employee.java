@@ -54,4 +54,7 @@ public class Employee {
         return id;
     }
 
+    public boolean checkPassword(String attempted_password) {
+        return this.password.equals(attempted_password);
+    }
 }
