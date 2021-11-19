@@ -3,17 +3,19 @@ package com.revature.Data;
 import com.revature.Classes.Employee;
 import com.revature.Classes.Expense;
 import com.revature.Classes.Manager;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
 public class ExpenseDAOImpl implements ExpenseDAO{
-    private static ExpenseDAO expenseDAO;
+    private Configuration configuration;
+    private SessionFactory sessionFactory;
 
-    public static ExpenseDAO getExpenseDAO() {
-        if(expenseDAO == null){
-            expenseDAO = new ExpenseDAOImpl();
-        }
-        return expenseDAO;
+    public ExpenseDAOImpl() {
+        configuration = new Configuration();
+        configuration.configure("hibernate.cfg.xml");
+        sessionFactory = configuration.buildSessionFactory();
     }
 
     @Override
