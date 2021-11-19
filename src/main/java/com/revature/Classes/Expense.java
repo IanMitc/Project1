@@ -1,5 +1,6 @@
 package com.revature.Classes;
 
+import com.revature.Data.DaoFactory;
 import com.revature.Data.EmployeeDAO;
 
 import javax.persistence.*;
@@ -9,13 +10,13 @@ import java.util.Date;
 @Entity
 public class Expense {
     @Column(name = "amount")
-    private final double amount;
+    private double amount;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_initiated")
-    private final Date dateInitiated;
+    private Date dateInitiated;
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "initiated_by_id", nullable = false)
-    private final Employee initiatedBy;
+    private Employee initiatedBy;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -35,6 +36,8 @@ public class Expense {
     @JoinColumn(name = "processed_by_id")
     private Manager processedBy;
 
+    public Expense(){}
+
     public Expense(double amount, String memo, Employee initiatedBy) {
         this.amount = amount;
         this.memo = memo;
@@ -45,7 +48,7 @@ public class Expense {
 
     //TODO: NOT WORKING! Implement fully once DAOs are implemented
     public Expense(double amount, String memo, int employeeID) {
-        EmployeeDAO employeeDAO = DAOFactory.getEmployeeDao();
+        EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
         this.amount = amount;
         this.memo = memo;
         this.initiatedBy = employeeDAO.getEmployee(employeeID);
