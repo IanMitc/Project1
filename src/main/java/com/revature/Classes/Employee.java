@@ -18,7 +18,7 @@ public class Employee {
     private String name;
     @Column(name = "username", nullable = false, unique = true)
     private String username;
-    @OneToMany(mappedBy = "initiatedBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "initiatedBy", orphanRemoval = true)
     private List<Expense> expenses;
 
     public Employee() {
