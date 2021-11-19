@@ -46,7 +46,6 @@ public class Expense {
         dateInitiated = new Date();
     }
 
-    //TODO: NOT WORKING! Implement fully once DAOs are implemented
     public Expense(double amount, String memo, int employeeID) {
         EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
         this.amount = amount;
