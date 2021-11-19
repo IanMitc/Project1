@@ -46,7 +46,10 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry).where(rootEntry.get("initiatedBy").in(employee.getId()));
+        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry)
+                .where(
+                        rootEntry.get("initiatedBy").in(employee.getId())
+                );
 
         TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
         List<Expense> results = allQuery.getResultList();
@@ -67,7 +70,9 @@ public class ExpenseDAOImpl implements ExpenseDAO {
                         cb.and(
                                 rootEntry.get("initiatedBy").in(employee.getId()),
                                 rootEntry.get("approved").in(false),
-                                rootEntry.get("pending").in(false)));
+                                rootEntry.get("pending").in(false)
+                        )
+                );
 
         TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
         List<Expense> results = allQuery.getResultList();
@@ -87,7 +92,9 @@ public class ExpenseDAOImpl implements ExpenseDAO {
                 .where(
                         cb.and(
                                 rootEntry.get("initiatedBy").in(employee.getId()),
-                                rootEntry.get("pending").in(true)));
+                                rootEntry.get("pending").in(true)
+                        )
+                );
 
         TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
         List<Expense> results = allQuery.getResultList();
@@ -98,7 +105,21 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 
     @Override
     public List<Expense> getPendingExpenses() {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> allEmployeeDeclinedTransactions = cq.select(rootEntry)
+                .where(
+                        rootEntry.get("pending").in(true)
+                );
+
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
+        List<Expense> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 
     @Override
