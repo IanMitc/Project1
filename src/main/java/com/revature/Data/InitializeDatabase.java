@@ -29,7 +29,6 @@ public class InitializeDatabase {
             employeeDAO.saveEmployee(employee);
         }
 
-        employeeList = employeeDAO.getEmployees();
         List<Expense> expenseList = new ArrayList<>();
 
         //create expenses to be approved
@@ -39,11 +38,11 @@ public class InitializeDatabase {
         }
 
         for (int i = 0; i < expenseList.size(); i++) {
-            if (expenseList.size() % (i + 1) == 0){
+            if (i <= expenseList.size() / 3){
                 expenseList.get(i).approveExpense((Manager) employeeDAO.getEmployee(2), "Sure thing");
-            } else if (expenseList.size() % (i + 1) == 1) {
+            } else if (i > expenseList.size() / 3 && i <= 2 * expenseList.size() / 3) {
                 expenseList.get(i).approveExpense((Manager) employeeDAO.getEmployee(8), "Sure thing");
-            } else if (expenseList.size() % (i + 1) == 2) {
+            } else if (i > 2 * expenseList.size() / 3) {
                 expenseList.get(i).approveExpense((Manager) employeeDAO.getEmployee(9), "Sure thing");
             }
         }
