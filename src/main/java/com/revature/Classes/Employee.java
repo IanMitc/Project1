@@ -21,7 +21,8 @@ public class Employee {
     @OneToMany(mappedBy = "initiatedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expenses;
 
-    public Employee(){}
+    public Employee() {
+    }
 
     public Employee(String name, String username, String password) {
         this.name = name;

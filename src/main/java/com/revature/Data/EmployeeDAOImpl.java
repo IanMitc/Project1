@@ -6,7 +6,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-public class EmployeeDAOImpl implements EmployeeDAO{
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+public class EmployeeDAOImpl implements EmployeeDAO {
     private Configuration configuration;
     private SessionFactory sessionFactory;
 
@@ -30,6 +37,31 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     }
 
     @Override
+    public Employee getEmployee(String username) {
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+        Root<Employee> rootEntry = cq.from(Employee.class);
+        CriteriaQuery<Employee> allEmployee = cq.select(rootEntry)
+                .where(
+                        rootEntry.get("username").in(username)
+                );
+
+        TypedQuery<Employee> allQuery = session.createQuery(allEmployee);
+
+        Employee result = null;
+        try {
+            result = allQuery.getSingleResult();
+        } catch (NoResultException noResultException) {
+            System.out.println(noResultException.getMessage());
+        }
+
+        session.close();
+        return result;
+    }
+
+    @Override
     public void saveEmployee(Employee employee) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -49,5 +81,21 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
         transaction.commit();
         session.close();
+    }
+
+    @Override
+    public List<Employee> getEmployees() {
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+        Root<Employee> rootEntry = cq.from(Employee.class);
+        CriteriaQuery<Employee> all = cq.select(rootEntry);
+
+        TypedQuery<Employee> allQuery = session.createQuery(all);
+        List<Employee> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 }
