@@ -10,5 +10,6 @@
         <property name="show_sql">true</property>
         <mapping class="com.revature.Classes.Employee"/>
         <mapping class="com.revature.Classes.Expense"/>
+        <mapping class="com.revature.Classes.Manager"/>
     </session-factory>
 </hibernate-configuration>
