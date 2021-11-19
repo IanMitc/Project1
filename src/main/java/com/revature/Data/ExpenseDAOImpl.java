@@ -5,6 +5,7 @@ import com.revature.Classes.Expense;
 import com.revature.Classes.Manager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.TypedQuery;
@@ -162,21 +163,49 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 
     @Override
     public void saveExpense(Expense expense) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        session.save(expense);
+
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void updateExpense(Expense expense) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        session.update(expense);
+
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void saveExpenses(List<Expense> expenses) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        for(Expense expense : expenses) {
+            session.save(expense);
+        }
+
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void updateExpenses(List<Expense> expenses) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        for(Expense expense : expenses) {
+            session.update(expense);
+        }
+
+        transaction.commit();
+        session.close();
     }
 }
