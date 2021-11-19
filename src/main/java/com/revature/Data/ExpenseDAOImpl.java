@@ -46,12 +46,12 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry)
+        CriteriaQuery<Expense> allEmployee = cq.select(rootEntry)
                 .where(
                         rootEntry.get("initiatedBy").in(employee.getId())
                 );
 
-        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployee);
         List<Expense> results = allQuery.getResultList();
 
         session.close();
@@ -65,7 +65,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeDeclinedTransactions = cq.select(rootEntry)
+        CriteriaQuery<Expense> allEmployeeDeclined = cq.select(rootEntry)
                 .where(
                         cb.and(
                                 rootEntry.get("initiatedBy").in(employee.getId()),
@@ -74,7 +74,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
                         )
                 );
 
-        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclined);
         List<Expense> results = allQuery.getResultList();
 
         session.close();
@@ -88,7 +88,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeDeclinedTransactions = cq.select(rootEntry)
+        CriteriaQuery<Expense> allEmployeePending = cq.select(rootEntry)
                 .where(
                         cb.and(
                                 rootEntry.get("initiatedBy").in(employee.getId()),
@@ -96,7 +96,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
                         )
                 );
 
-        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeePending);
         List<Expense> results = allQuery.getResultList();
 
         session.close();
@@ -110,12 +110,12 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeDeclinedTransactions = cq.select(rootEntry)
+        CriteriaQuery<Expense> allPending = cq.select(rootEntry)
                 .where(
                         rootEntry.get("pending").in(true)
                 );
 
-        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeDeclinedTransactions);
+        TypedQuery<Expense> allQuery = session.createQuery(allPending);
         List<Expense> results = allQuery.getResultList();
 
         session.close();
@@ -129,12 +129,12 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> rootEntry = cq.from(Expense.class);
-        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry)
+        CriteriaQuery<Expense> allManagerProcessed = cq.select(rootEntry)
                 .where(
                         rootEntry.get("processedBy").in(manager.getId())
                 );
 
-        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
+        TypedQuery<Expense> allQuery = session.createQuery(allManagerProcessed);
         List<Expense> results = allQuery.getResultList();
 
         session.close();
@@ -143,7 +143,21 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 
     @Override
     public Expense getExpense(int id) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> expense = cq.select(rootEntry)
+                .where(
+                        rootEntry.get("id").in(id)
+                );
+
+        TypedQuery<Expense> allQuery = session.createQuery(expense);
+        Expense result = allQuery.getSingleResult();
+
+        session.close();
+        return result;
     }
 
     @Override
