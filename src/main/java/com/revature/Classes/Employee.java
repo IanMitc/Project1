@@ -7,9 +7,9 @@ import java.util.List;
 public class Employee {
     @Enumerated
     @Column(name = "user_role", nullable = false)
-    private final Permissions.UserRole userRole;
+    private Permissions.UserRole userRole;
     @Column(name = "password", nullable = false)
-    private final String password;
+    private String password;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -20,6 +20,8 @@ public class Employee {
     private String username;
     @OneToMany(mappedBy = "initiatedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expenses;
+
+    public Employee(){}
 
     public Employee(String name, String username, String password) {
         this.name = name;
