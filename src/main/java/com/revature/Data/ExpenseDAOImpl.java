@@ -3,12 +3,17 @@ package com.revature.Data;
 import com.revature.Classes.Employee;
 import com.revature.Classes.Expense;
 import com.revature.Classes.Manager;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class ExpenseDAOImpl implements ExpenseDAO{
+public class ExpenseDAOImpl implements ExpenseDAO {
     private Configuration configuration;
     private SessionFactory sessionFactory;
 
@@ -20,17 +25,50 @@ public class ExpenseDAOImpl implements ExpenseDAO{
 
     @Override
     public List<Expense> getExpenses() {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> all = cq.select(rootEntry);
+
+        TypedQuery<Expense> allQuery = session.createQuery(all);
+        List<Expense> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 
     @Override
     public List<Expense> getExpenses(Employee employee) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry).where(rootEntry.get("initiatedBy").in(employee.getId()));
+
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
+        List<Expense> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 
     @Override
     public List<Expense> getDeclinedExpenses(Employee employee) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry).where(rootEntry.get("initiatedBy").in(employee.getId()));
+
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
+        List<Expense> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 
     @Override
