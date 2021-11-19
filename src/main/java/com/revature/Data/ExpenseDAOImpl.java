@@ -124,7 +124,21 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 
     @Override
     public List<Expense> getExpensesProcessedBy(Manager manager) {
-        return null;
+        Session session = sessionFactory.openSession();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> rootEntry = cq.from(Expense.class);
+        CriteriaQuery<Expense> allEmployeeTransactions = cq.select(rootEntry)
+                .where(
+                        rootEntry.get("processedBy").in(manager.getId())
+                );
+
+        TypedQuery<Expense> allQuery = session.createQuery(allEmployeeTransactions);
+        List<Expense> results = allQuery.getResultList();
+
+        session.close();
+        return results;
     }
 
     @Override
