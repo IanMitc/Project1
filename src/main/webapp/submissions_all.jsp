@@ -97,7 +97,7 @@
                     <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsPendingAll">Submissions for Approval <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="SubmissionsAllServlet">All Past Submissions <span class="sr-only">(current)</span></a>

@@ -43,7 +43,7 @@ public class LoginServlet  extends HttpServlet {
                 String testval = employee.getUserRole().name();
                 if(testval.equals("MANAGER")) {
                     //if manager forward to expense submissions approval page
-                    rd = request.getRequestDispatcher("/submissions_approval.jsp");
+                    rd = request.getRequestDispatcher("SubmissionsPendingAll");
                 } else{
                     // if employee forward to expense submission page
                     rd = request.getRequestDispatcher("/submission_form.jsp");

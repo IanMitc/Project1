@@ -55,5 +55,25 @@
         <url-pattern>/NewSubmissionServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SubmissionsPendingAll</servlet-name>
+        <servlet-class>com.revature.Classes.SubmissionsPendingAll</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubmissionsPendingAll</servlet-name>
+        <url-pattern>/SubmissionsPendingAll</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateApprovals</servlet-name>
+        <servlet-class>com.revature.Classes.UpdateApprovals</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateApprovals</servlet-name>
+        <url-pattern>/UpdateApprovals</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

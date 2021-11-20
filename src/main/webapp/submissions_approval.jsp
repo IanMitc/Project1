@@ -1,3 +1,8 @@
+<%@ page import = "com.revature.Classes.Expense"%>
+<%@ page import = "com.revature.Classes.Employee"%>
+<%@ page import = "java.util.*" %>
+<%@ page session = "true" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +25,7 @@
         flex-direction: column;
     }
     #content{
-        padding-top: 100px;
+        /*padding-top: 100px;*/
         flex: 1 0 auto;
     }
     .wrapper{
@@ -92,7 +97,7 @@
                     <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsPendingAll">Submissions for Approval <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="SubmissionsAllServlet">All Past Submissions <span class="sr-only">(current)</span></a>
@@ -114,14 +119,38 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 10%;">ID</th>
+                            <th style="width: 10%;">Claim ID</th>
                             <th style="width: 10%;">Name</th>
-                            <th style="width: 10%;">Date Submitted</th>
+                            <th style="width: 15%;">Date Submitted</th>
                             <th style="width: 10%;">Amount</th>
                             <th style="width: 40%;">Memo</th>
-                            <th style="width: 20%;">Approve/Deny</th>
+                            <th style="width: 15%;">Approve/Deny</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <%
+                        try{
+                            ArrayList<Expense> pendingexpenses = (ArrayList<Expense>)request.getAttribute("allpendingclaims");
+                            for(Expense pendingexpense: pendingexpenses){
+                        %>
+                            <tr>
+                                <td><%= pendingexpense.getId() %></td>
+                                <td><%= pendingexpense.getInitiatedBy().getName() %></td>
+                                <td><%= pendingexpense.getDateInitiated() %></td>
+                                <td><%= pendingexpense.getAmount() %></td>
+                                <td><%= pendingexpense.getMemo() %></td>
+                                <td>
+                                    <button type="Submit" value="true" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" >Approve</button>
+                                    <button type="Submit" value="false" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" >Deny</button>
+                                </td>
+                            </tr>
+                        <%
+                            }
+                        }catch(Exception e){
+                            out.println(e.getMessage());
+                        }
+                        %>
+                    </tbody>
 
 
                 </table>
