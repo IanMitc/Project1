@@ -22,16 +22,10 @@ public class SubmissionsPendingServlet extends HttpServlet {
 
         // Get all submissions using employee object
         ExpenseDAO exdao = DaoFactory.getExpenseDAO();
-        List<Expense> results = exdao.getExpenses(employee);
+        List<Expense> results = exdao.getPendingExpenses(employee);
 
         // Filter for any expenses not pending
-        ArrayList<Expense> pendingclaims = new ArrayList<Expense>();
-        for(Expense result : results) {
-            if (result.isPending()) {
-                pendingclaims.add(result);
-            }
-
-        }
+        ArrayList<Expense> pendingclaims = (ArrayList<Expense>) results;
 
         // TODO ADD CONDITION IF LIST EMPTY
         // Forward list of expenses to submissions_history page
@@ -39,6 +33,5 @@ public class SubmissionsPendingServlet extends HttpServlet {
         request.getRequestDispatcher("submissions_pending.jsp").forward(request, response);
 
     }
-
 
 }
