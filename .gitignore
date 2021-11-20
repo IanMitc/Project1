@@ -9,3 +9,4 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 !/src/main/resources/hibernate.cfg.xml
+!/src/test/resources/hibernate.cfg.xml
