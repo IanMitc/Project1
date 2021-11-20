@@ -77,10 +77,10 @@
                     <a class="nav-link" href="submission_form.jsp">Submit Reimbursements <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_history.jsp">Past Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsHistoryServlet">Past Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_pending.jsp">Pending Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>

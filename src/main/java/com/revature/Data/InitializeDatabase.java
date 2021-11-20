@@ -7,7 +7,7 @@ import com.revature.Classes.Permissions;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class InitializeDatabase {
     public static void main(String[] args) {
         EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
@@ -85,4 +85,4 @@ public class InitializeDatabase {
             expenseDAO.saveExpense(expense);
         }
     }
-}
+}*/

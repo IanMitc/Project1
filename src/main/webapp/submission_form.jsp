@@ -71,10 +71,10 @@
                     <a class="nav-link" href="submission_form.jsp">Submit Reimbursements <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_history.jsp">Past Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsHistoryServlet">Past Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_pending.jsp">Pending Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
             <!--<li class="nav-item active">
                     <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
@@ -91,7 +91,6 @@
     </nav>
 
     <!-- MAIN BODY -->
-
     <p style="font-size:21pt; text-align: center; margin-top: 50px; color:rgb(218, 17, 17);">Employee <%= session.getAttribute("name") %> logged in</p>
 
     <div class="wrapper">

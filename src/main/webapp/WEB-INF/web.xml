@@ -15,5 +15,35 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SubmissionsHistoryServlet</servlet-name>
+        <servlet-class>com.revature.Classes.SubmissionsHistoryServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubmissionsHistoryServlet</servlet-name>
+        <url-pattern>/SubmissionsHistoryServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubmissionsPendingServlet</servlet-name>
+        <servlet-class>com.revature.Classes.SubmissionsPendingServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubmissionsPendingServlet</servlet-name>
+        <url-pattern>/SubmissionsPendingServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubmissionsAllServlet</servlet-name>
+        <servlet-class>com.revature.Classes.SubmissionsAllServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SubmissionsAllServlet</servlet-name>
+        <url-pattern>/SubmissionsAllServlet</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

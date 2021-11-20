@@ -14,18 +14,24 @@ import java.io.IOException;
 public class LoginServlet  extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("The servlet is active");
+        //System.out.println("The servlet is active");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        // fetch an employee obj from the database with login username
         EmployeeDAO edao = DaoFactory.getEmployeeDAO();
         Employee employee = edao.getEmployee(username);
 
+
         if(employee == null){
+            // if no matching username found send to re-login page
             RequestDispatcher rd = request.getRequestDispatcher("/unsuccessfulLogin.html");
             rd.include(request, response);
         }else{
+            // if a username matches check password
             if(employee.checkPassword(password)){
+
+                // if password matches, set session info
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", employee.getId());
                 session.setAttribute("name", employee.getName());
@@ -33,25 +39,24 @@ public class LoginServlet  extends HttpServlet {
 
                 RequestDispatcher rd;
 
+                // test whether user is employee or manager
                 String testval = employee.getUserRole().name();
                 if(testval.equals("MANAGER")) {
+                    //if manager forward to expense submissions approval page
                     rd = request.getRequestDispatcher("/submissions_approval.jsp");
                 } else{
+                    // if employee forward to expense submission page
                     rd = request.getRequestDispatcher("/submission_form.jsp");
                 }
                 rd.include(request, response);
 
             }else{
+                // if no match for password send to re-login page
                 RequestDispatcher rd = request.getRequestDispatcher("/unsuccessfulLogin.html");
                 rd.include(request, response);
             }
 
-
-
         }
-
-
-
 
     }
 

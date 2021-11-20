@@ -1,10 +1,14 @@
+<%@ page import = "com.revature.Classes.Expense"%>
+<%@ page import = "java.util.*" %>
+<%@ page session = "true" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submissions Pending</title>
+    <title>Submissions History</title>
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
@@ -77,10 +81,10 @@
                     <a class="nav-link" href="submission_form.jsp">Submit Reimbursements <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_history.jsp">Past Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsHistoryServlet">Past Submissions <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_pending.jsp">Pending Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
             <!--<li class="nav-item active">
                     <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
@@ -98,18 +102,40 @@
 
     <!-- MAIN BODY -->
 
-    <header style="font-size:29pt; text-align: center; margin-top: 15px; color:rgb(218, 17, 17);">Reimbursement Claims Pending for Employee ID: ${param.id} </header>
+    <header style="font-size:29pt; text-align: center; margin-top: 15px; color:rgb(218, 17, 17);">Reimbursement Claims History for Employee <%= session.getAttribute("name") %> </header>
 
     <div class="wrapper">
             <form id="submission">
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 20%;">Date Submitted</th>
-                            <th style="width: 20%;">Amount</th>
-                            <th style="width: 60%;">Memo</th>
+                            <th style="width: 15%;">Date Submitted</th>
+                            <th style="width: 15%;">Date Processed</th>
+                            <th style="width: 15%;">Amount</th>
+                            <th style="width: 40%;">Memo</th>
+                            <th style="width: 15%;">Approved/Denied</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <%
+                        try{
+                            ArrayList<Expense> expenses = (ArrayList<Expense>)request.getAttribute("pastclaims");
+                            for(Expense expense: expenses){
+                        %>
+                            <tr>
+                                <td><%= expense.getDateInitiated() %></td>
+                                <td><%= expense.getDateProcessed() %></td>
+                                <td><%= expense.getAmount() %></td>
+                                <td><%= expense.getMemo() %></td>
+                                <td><%= expense.isApproved() %></td>
+                            </tr>
+                        <%
+                            }
+                        }catch(Exception e){
+                            out.println(e.getMessage());
+                        }
+                        %>
+                    </tbody>
 
 
                 </table>
