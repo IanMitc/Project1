@@ -14,9 +14,18 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Crafty+Girls&family=Dancing+Script&family=Lato:wght@100&family=Patrick+Hand&family=Quicksand:wght@300&family=Roboto:wght@100&display=swap');
+    html{
+        height: 100%;
+    }
     body{
         background-color: #ffea00;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #content{
+        /*padding-top: 100px;*/
+        flex: 1 0 auto;
     }
     .wrapper{
         width: 100%;
@@ -101,7 +110,7 @@
     </nav>
 
     <!-- MAIN BODY -->
-
+<div id="content">
     <header style="font-size:29pt; text-align: center; margin-top: 15px; color:rgb(218, 17, 17);">Reimbursement Claims History for Employee <%= session.getAttribute("name") %> </header>
 
     <div class="wrapper">
@@ -140,10 +149,10 @@
 
                 </table>
         </div>
-
+</div>
 
     <!-- FOOTER -->
-    <div class="card text-center" style=" float: bottom; width: 100%">
+    <div class="card text-center" style="flex-shrink: 0; width: 100%">
         <div class="card-body" style="background-color: #ffd500; color: rgb(218, 17, 17); font-weight: bold;">
           <h5 class="card-title">Reactive Rubber Duckie Distributors Incorporated (R<sup>2</sup>D<sup>2</sup> Inc.) is a wholly owned subdivision of Migrating Mallards PLC</h5>
           <p class="card-text">R<sup>2</sup>D<sup>2</sup> Inc. 33 Waterside Drive, Duckworth MA 45678   Tel: (555) 123 4567   Email: ducksinarow@r2r2.com</p>
