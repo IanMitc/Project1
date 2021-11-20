@@ -17,11 +17,19 @@ import java.util.List;
 public class ExpenseDAOImpl implements ExpenseDAO {
     private Configuration configuration;
     private SessionFactory sessionFactory;
+    private static ExpenseDAOImpl expenseDAO;
 
-    public ExpenseDAOImpl() {
+    private ExpenseDAOImpl() {
         configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
+    }
+
+    public static ExpenseDAOImpl getInstance() {
+        if (expenseDAO == null){
+            expenseDAO = new ExpenseDAOImpl();
+        }
+        return expenseDAO;
     }
 
     @Override
@@ -207,5 +215,10 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 
         transaction.commit();
         session.close();
+    }
+
+    @Override
+    public void close() {
+        expenseDAO = null;
     }
 }

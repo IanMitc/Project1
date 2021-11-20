@@ -14,4 +14,6 @@ public interface EmployeeDAO {
     void updateEmployee(Employee employee);
 
     List<Employee> getEmployees();
+
+    void close();
 }

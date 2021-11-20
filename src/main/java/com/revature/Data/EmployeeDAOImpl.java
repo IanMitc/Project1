@@ -16,11 +16,19 @@ import java.util.List;
 public class EmployeeDAOImpl implements EmployeeDAO {
     private Configuration configuration;
     private SessionFactory sessionFactory;
+    private static EmployeeDAOImpl employeeDAO;
 
-    public EmployeeDAOImpl() {
+    private EmployeeDAOImpl() {
         configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
+    }
+
+    public static EmployeeDAOImpl getInstance() {
+        if (employeeDAO == null){
+            employeeDAO = new EmployeeDAOImpl();
+        }
+        return employeeDAO;
     }
 
     @Override
@@ -97,5 +105,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
         session.close();
         return results;
+    }
+
+    @Override
+    public void close() {
+        employeeDAO = null;
     }
 }

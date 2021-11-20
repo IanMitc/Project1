@@ -28,4 +28,6 @@ public interface ExpenseDAO {
     void saveExpenses(List<Expense> expenses);
 
     void updateExpenses(List<Expense> expenses);
+
+    void close();
 }
