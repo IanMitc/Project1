@@ -80,7 +80,7 @@
                     <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_all.jsp">All Past Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsAllServlet">All Past Submissions <span class="sr-only">(current)</span></a>
                 </li>-->
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -91,6 +91,7 @@
     </nav>
 
     <!-- MAIN BODY -->
+    <div height="100%">
     <p style="font-size:21pt; text-align: center; margin-top: 50px; color:rgb(218, 17, 17);">Employee <%= session.getAttribute("name") %> logged in</p>
 
     <div class="wrapper">
@@ -127,9 +128,10 @@
               </form>
         </div>
     </div>
+    </div>
 
     <!-- FOOTER -->
-    <div class="card text-center" style=" position: absolute; bottom: 0; width: 100%">
+    <div class="card text-center" style=" position: absolute; bottom: 0; width: 100%;">
         <div class="card-body" style="background-color: #ffd500; color: rgb(218, 17, 17); font-weight: bold;">
           <h5 class="card-title">Reactive Rubber Duckie Distributors Incorporated (R<sup>2</sup>D<sup>2</sup> Inc.) is a wholly owned subdivision of Migrating Mallards PLC</h5>
           <p class="card-text">R<sup>2</sup>D<sup>2</sup> Inc. 33 Waterside Drive, Duckworth MA 45678   Tel: (555) 123 4567   Email: ducksinarow@r2r2.com</p>

@@ -14,7 +14,7 @@ public class Expense {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_initiated")
     private Date dateInitiated;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "initiated_by_id", nullable = false)
     private Employee initiatedBy;
     @Id
@@ -32,7 +32,7 @@ public class Expense {
     private boolean approved;
     @Column(name = "pending", nullable = false)
     private boolean pending;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "processed_by_id")
     private Manager processedBy;
 

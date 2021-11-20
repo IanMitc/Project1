@@ -1,3 +1,8 @@
+<%@ page import = "com.revature.Classes.Expense"%>
+<%@ page import = "com.revature.Classes.Employee"%>
+<%@ page import = "java.util.*" %>
+<%@ page session = "true" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +91,7 @@
                     <a class="nav-link" href="submissions_approval.jsp">Submissions for Approval <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="submissions_all.jsp">All Past Submissions <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="SubmissionsAllServlet">All Past Submissions <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -105,14 +110,37 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 10%;">ID</th>
-                            <th style="width: 10%;">Name</th>
-                            <th style="width: 10%;">Date Submitted</th>
+                            <th style="width: 16%;">Date Submitted</th>
+                            <th style="width: 9%;">Employee ID</th>
+                            <th style="width: 16%;">Date Processed</th>
+                            <th style="width: 9%;">Manager ID</th>
                             <th style="width: 10%;">Amount</th>
                             <th style="width: 40%;">Memo</th>
-                            <th style="width: 20%;">Approved/Denied</th>
+                            <th style="width: 10%;">Approved/Denied</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <%
+                        try{
+                            ArrayList<Expense> expenses = (ArrayList<Expense>)request.getAttribute("allclaims");
+                            for(Expense expense: expenses){
+                        %>
+                            <tr>
+                                <td><%= expense.getDateInitiated() %></td>
+                                <td><%= expense.getInitiatedBy().getId() %></td>
+                                <td><%= expense.getDateProcessed() %></td>
+                                <td><%= expense.getProcessedBy().getId() %></td>
+                                <td><%= expense.getAmount() %></td>
+                                <td><%= expense.getMemo() %></td>
+                                <td><%= expense.isApproved() %></td>
+                            </tr>
+                        <%
+                            }
+                        }catch(Exception e){
+                            out.println(e.getMessage());
+                        }
+                        %>
+                    </tbody>
 
 
                 </table>
@@ -120,7 +148,7 @@
 
 
     <!-- FOOTER -->
-    <div class="card text-center" style=" position: absolute; bottom: 0; width: 100%">
+    <div class="card text-center" style=" float: bottom; width: 100%">
         <div class="card-body" style="background-color: #ffd500; color: rgb(218, 17, 17); font-weight: bold;">
           <h5 class="card-title">Reactive Rubber Duckie Distributors Incorporated (R<sup>2</sup>D<sup>2</sup> Inc.) is a wholly owned subdivision of Migrating Mallards PLC</h5>
           <p class="card-text">R<sup>2</sup>D<sup>2</sup> Inc. 33 Waterside Drive, Duckworth MA 45678   Tel: (555) 123 4567   Email: ducksinarow@r2r2.com</p>
