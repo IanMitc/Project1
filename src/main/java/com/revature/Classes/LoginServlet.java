@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class LoginServlet  extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         System.out.println("The servlet is active");
@@ -21,11 +21,11 @@ public class LoginServlet  extends HttpServlet {
         EmployeeDAO edao = DaoFactory.getEmployeeDAO();
         Employee employee = edao.getEmployee(username);
 
-        if(employee == null){
+        if (employee == null) {
             RequestDispatcher rd = request.getRequestDispatcher("/unsuccessfulLogin.html");
             rd.include(request, response);
-        }else{
-            if(employee.checkPassword(password)){
+        } else {
+            if (employee.checkPassword(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", employee.getId());
                 session.setAttribute("name", employee.getName());
@@ -34,23 +34,20 @@ public class LoginServlet  extends HttpServlet {
                 RequestDispatcher rd;
 
                 String testval = employee.getUserRole().name();
-                if(testval.equals("MANAGER")) {
+                if (testval.equals("MANAGER")) {
                     rd = request.getRequestDispatcher("/submissions_approval.jsp");
-                } else{
+                } else {
                     rd = request.getRequestDispatcher("/submission_form.jsp");
                 }
                 rd.include(request, response);
 
-            }else{
+            } else {
                 RequestDispatcher rd = request.getRequestDispatcher("/unsuccessfulLogin.html");
                 rd.include(request, response);
             }
 
 
-
         }
-
-
 
 
     }

@@ -36,7 +36,8 @@ public class Expense {
     @JoinColumn(name = "processed_by_id")
     private Manager processedBy;
 
-    public Expense(){}
+    public Expense() {
+    }
 
     public Expense(double amount, String memo, Employee initiatedBy) {
         this.amount = amount;
