@@ -37,18 +37,20 @@ public class LoginServlet  extends HttpServlet {
                 session.setAttribute("name", employee.getName());
                 session.setAttribute("username", username);
 
-                RequestDispatcher rd;
+                //RequestDispatcher rd;
 
                 // test whether user is employee or manager
                 String testval = employee.getUserRole().name();
                 if(testval.equals("MANAGER")) {
                     //if manager forward to expense submissions approval page
-                    rd = request.getRequestDispatcher("SubmissionsPendingAll");
+                    response.sendRedirect("SubmissionsPendingAll");
                 } else{
                     // if employee forward to expense submission page
+                    RequestDispatcher rd;
                     rd = request.getRequestDispatcher("/submission_form.jsp");
+                    rd.include(request, response);
                 }
-                rd.include(request, response);
+
 
             }else{
                 // if no match for password send to re-login page

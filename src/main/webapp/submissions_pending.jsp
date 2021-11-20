@@ -103,7 +103,7 @@
                 </li>-->
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt; " type="submit">Logout</button>
+                <input class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" type="button" onclick="logOut()" value="Logout"/>
             </form>
             <img src="./images/duck-front.png" width="61px" style="margin-left:5px; margin-right: 30px"/>
         </div>
@@ -160,6 +160,9 @@
     <script>
         var dt = new Date();
         document.getElementById("date").innerHTML = dt.toLocaleDateString();
-        </script>
+       function logOut(){
+           document.location.href="LogoutServlet";
+       }
+    </script>
 </body>
 </html>
