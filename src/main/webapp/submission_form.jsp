@@ -54,6 +54,9 @@
         font-size: 18pt;
         margin-left: 20px;
     }
+    #formbody{
+        margin-left:430px;
+    }
 </style>
 
 <body style="font-family: 'Patrick Hand', cursive;">
@@ -95,14 +98,14 @@
     <p style="font-size:21pt; text-align: center; margin-top: 50px; color:rgb(218, 17, 17);">Employee <%= session.getAttribute("name") %> logged in</p>
 
     <div class="wrapper">
-            <form id="submission">
+            <form action="NewSubmissionServlet" method="post" id="submission">
                 <p style="font-size:29pt; text-align: center;">Reimbursement Claim</p>
 
-                <table>
+                <table id="formbody">
                     <tr>
                         <td>
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" style="width: 200px;">
+                            <p id="name"><%= session.getAttribute("name") %></p>
                         </td>
                         <td>
                             <label for="date">Date</label>
@@ -124,7 +127,7 @@
                     </tr>
                 </table>
 
-                <button type="submit" class="btn btn-primary" style="width: 400px; background-color: rgb(218, 17, 17); font-weight: bold; display: block; margin: auto; border-width: 0px;">Submit</button>
+                <input type="button" class="btn btn-primary" value="Submit" onclick="submitForm()" style="width: 400px; background-color: rgb(218, 17, 17); font-weight: bold; display: block; margin: auto; border-width: 0px;" />
               </form>
         </div>
     </div>
@@ -143,6 +146,10 @@
     <script>
         var dt = new Date();
         document.getElementById("date").innerHTML = dt.toLocaleDateString();
-        </script>
+        function submitForm(){
+            document.getElementById("submission").submit();
+        }
+    </script>
+
 </body>
 </html>
