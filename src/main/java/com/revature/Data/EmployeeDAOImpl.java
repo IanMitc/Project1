@@ -14,9 +14,9 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
-    private Configuration configuration;
-    private SessionFactory sessionFactory;
     private static EmployeeDAOImpl employeeDAO;
+    private final Configuration configuration;
+    private final SessionFactory sessionFactory;
 
     private EmployeeDAOImpl() {
         configuration = new Configuration();
@@ -25,7 +25,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     public static EmployeeDAOImpl getInstance() {
-        if (employeeDAO == null){
+        if (employeeDAO == null) {
             employeeDAO = new EmployeeDAOImpl();
         }
         return employeeDAO;

@@ -15,9 +15,9 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ExpenseDAOImpl implements ExpenseDAO {
-    private Configuration configuration;
-    private SessionFactory sessionFactory;
     private static ExpenseDAOImpl expenseDAO;
+    private final Configuration configuration;
+    private final SessionFactory sessionFactory;
 
     private ExpenseDAOImpl() {
         configuration = new Configuration();
@@ -26,7 +26,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
     }
 
     public static ExpenseDAOImpl getInstance() {
-        if (expenseDAO == null){
+        if (expenseDAO == null) {
             expenseDAO = new ExpenseDAOImpl();
         }
         return expenseDAO;
@@ -196,7 +196,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        for(Expense expense : expenses) {
+        for (Expense expense : expenses) {
             session.save(expense);
         }
 
@@ -209,7 +209,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        for(Expense expense : expenses) {
+        for (Expense expense : expenses) {
             session.update(expense);
         }
 

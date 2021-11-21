@@ -10,7 +10,8 @@ public class Manager extends Employee {
     @OneToMany(mappedBy = "processedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Expense> expensesProcessed;
 
-    public Manager(){}
+    public Manager() {
+    }
 
     public Manager(String name, String username, String password) {
         super(name, username, password, Permissions.UserRole.MANAGER);
