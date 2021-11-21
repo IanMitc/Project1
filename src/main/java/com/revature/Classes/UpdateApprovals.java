@@ -1,6 +1,7 @@
 package com.revature.Classes;
 
 import com.revature.Data.DaoFactory;
+import com.revature.Data.EmployeeDAO;
 import com.revature.Data.ExpenseDAO;
 
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class UpdateApprovals extends HttpServlet {
         // Testing info assembly
         HttpSession session = request.getSession();
 
+        int id = (Integer)session.getAttribute("userId");
         String name = (String)session.getAttribute("name");
         String username = (String)session.getAttribute("username");
         String password = (String)session.getAttribute("password");
@@ -36,8 +38,9 @@ public class UpdateApprovals extends HttpServlet {
         System.out.println("Approval status: " + approved);
 
         ExpenseDAO exdao = DaoFactory.getExpenseDAO();
+        EmployeeDAO edao = DaoFactory.getEmployeeDAO();
+        Manager manager = (Manager)edao.getEmployee(id);
         Expense expense = exdao.getExpense(expenseId);
-        Manager manager = new Manager(name, username, password);
 
         if(approved){
             expense.approveExpense(manager, memo);
