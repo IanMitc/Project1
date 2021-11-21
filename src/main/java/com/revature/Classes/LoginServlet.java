@@ -36,6 +36,7 @@ public class LoginServlet  extends HttpServlet {
                 session.setAttribute("userId", employee.getId());
                 session.setAttribute("name", employee.getName());
                 session.setAttribute("username", username);
+                session.setAttribute("password", password);
 
                 //RequestDispatcher rd;
 

@@ -139,9 +139,8 @@
                                 <td><%= pendingexpense.getDateInitiated() %></td>
                                 <td><%= pendingexpense.getAmount() %></td>
                                 <td><%= pendingexpense.getMemo() %></td>
-                                <td>
-                                    <button type="Submit" value="true" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" >Approve</button>
-                                    <button type="Submit" value="false" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" >Deny</button>
+                                <td><button type="button" data-id=<%= String.valueOf(pendingexpense.getId()) %> class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 18pt;" data-toggle="modal" data-target="#exampleModal" data-approval="true">Approve</button>
+                                    <button type="button" data-id=<%= String.valueOf(pendingexpense.getId()) %> class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 18pt;" data-toggle="modal" data-target="#exampleModal" data-approval="false">Deny</button>
                                 </td>
                             </tr>
                         <%
@@ -165,14 +164,73 @@
         </div>
       </div>
 
+    <!-- MODAL -->
+
+
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; padding: 20px; padding-bottom:30px; color:rgb(218, 17, 17); background-color: #ffd500;">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16pt">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="updateExpense" action="UpdateApprovals" method="post">
+              <div class="form-group">
+                <label for="message-text" class="col-form-label" style="font-size: 14pt">Memo:</label>
+                <textarea name="memo" class="form-control" id="memo" style="background-color: rgb(223, 219, 219);"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="hidden" name="expenseId" class="hidden-data" id="expenseId" />
+              </div>
+              <div class="form-group">
+                <input type="hidden" name="approved" class="hidden-data" id="approved" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+                <button type="button" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 14pt;" data-dismiss="modal">Close</button>
+                <button type="button" onclick="submitForm()" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 14pt;">Update Expense Status</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-    <script>
-    var dt = new Date();
-    document.getElementById("date").innerHTML = dt.toLocaleDateString();
+
+    <script type="text/javascript">
+
        function logOut(){
            document.location.href="LogoutServlet";
        }
+
+       $(document).on('show.bs.modal', '#exampleModal', function (event) {
+         var button = $(event.relatedTarget) // Button that triggered the modal
+         var isApproved = button.data('approval'); // Extract info from data-* attributes
+         var id = button.data('id');
+         var modal = $(this)
+         if (isApproved){
+            modal.find('.modal-title').text('Expense ID: ' + id + ' to be approved')
+         }
+         else{
+            modal.find('.modal-title').text('Expense ID: ' + id + ' to be denied')
+         }
+         modal.find('#expenseId').val(id)
+         modal.find('#approved').val(isApproved)
+       });
+
+       function submitForm() {
+            var data = $('form').serialize();
+            $('#memo').val('');
+            $('#expenseId').val('');
+            $.post('UpdateApprovals', data);
+       }
+
     </script>
 </body>
 </html>
