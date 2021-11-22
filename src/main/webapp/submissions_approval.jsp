@@ -192,7 +192,7 @@
           </div>
           <div class="modal-footer">
                 <button type="button" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 14pt;" data-dismiss="modal">Close</button>
-                <button type="button" onclick="submitForm()" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 14pt;">Update Expense Status</button>
+                <button type="button" onclick="submitForm()" id="submit" class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 14pt;">Update Expense Status</button>
           </div>
         </div>
       </div>
@@ -229,6 +229,8 @@
             $('#memo').val('');
             $('#expenseId').val('');
             $.post('UpdateApprovals', data);
+            $('#exampleModal').modal('hide');
+            location.reload();
        }
 
     </script>
