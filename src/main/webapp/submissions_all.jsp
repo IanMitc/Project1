@@ -118,13 +118,14 @@
                     <table>
                         <thead>
                             <tr>
-                                <th style="width: 16%;">Date Submitted</th>
-                                <th style="width: 9%;">Employee ID</th>
+                                <th style="width: 15%;">Date Submitted</th>
+                                <th style="width: 8%;">Employee ID</th>
                                 <th style="width: 16%;">Date Processed</th>
-                                <th style="width: 9%;">Manager ID</th>
+                                <th style="width: 8%;">Manager ID</th>
                                 <th style="width: 10%;">Amount</th>
-                                <th style="width: 40%;">Memo</th>
+                                <th style="width: 16%;">Memo</th>
                                 <th style="width: 10%;">Approved/Denied</th>
+                                <th style="width: 27%;">Reason</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,6 +142,7 @@
                                     <td><%= expense.getAmount() %></td>
                                     <td><%= expense.getMemo() %></td>
                                     <td><%= expense.isApproved() %></td>
+                                    <td><%= expense.getProcessorMemo() %></td>
                                 </tr>
                             <%
                                 }
