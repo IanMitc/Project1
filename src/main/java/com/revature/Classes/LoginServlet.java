@@ -43,9 +43,11 @@ public class LoginServlet  extends HttpServlet {
                 // test whether user is employee or manager
                 String testval = employee.getUserRole().name();
                 if(testval.equals("MANAGER")) {
+                    session.setAttribute("role", "manager");
                     //if manager forward to expense submissions approval page
                     response.sendRedirect("SubmissionsPendingAll");
                 } else{
+                    session.setAttribute("role", "employee");
                     // if employee forward to expense submission page
                     RequestDispatcher rd;
                     rd = request.getRequestDispatcher("/submission_form.jsp");

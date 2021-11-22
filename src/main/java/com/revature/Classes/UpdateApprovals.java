@@ -51,6 +51,6 @@ public class UpdateApprovals extends HttpServlet {
         }
 
         exdao.updateExpense(expense);
-        response.sendRedirect("SubmissionsPendingAll");
+        //response.sendRedirect("SubmissionsPendingAll");
     }
 }

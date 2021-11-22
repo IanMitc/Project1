@@ -230,7 +230,9 @@
             $('#expenseId').val('');
             $.post('UpdateApprovals', data);
             $('#exampleModal').modal('hide');
-            location.reload();
+            setTimeout(function() {
+                window.location.reload()
+            }, 300);
        }
 
     </script>
