@@ -83,9 +83,14 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
+           <%
+                String role=(String)session.getAttribute("role");
+                if(role == "manager"){
+            %>
                 <li class="nav-item active">
                     <a class="nav-link" href="submission_form.jsp">Submit Reimbursements <span class="sr-only">(current)</span></a>
                 </li>
@@ -95,13 +100,28 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
                 </li>
-            <!--<li class="nav-item active">
+                <li class="nav-item active">
                     <a class="nav-link" href="SubmissionsPendingAll">Submissions for Approval <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="SubmissionsAllServlet">All Past Submissions <span class="sr-only">(current)</span></a>
-                </li>-->
+                </li>
+            <%
+            }else{
+            %>
+                <li class="nav-item active">
+                    <a class="nav-link" href="submission_form.jsp">Submit Reimbursements <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="SubmissionsHistoryServlet">Past Submissions <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="SubmissionsPendingServlet">Pending Submissions <span class="sr-only">(current)</span></a>
+                </li>
+            <%}%>
+
             </ul>
+
             <form class="form-inline my-2 my-lg-0">
                 <input class="btn btn-outline-warning my-2 my-sm-0" style="color:rgb(218, 17, 17); border-color: rgb(218, 17, 17); font-size: 21pt;" type="button" onclick="logOut()" value="Logout"/>
             </form>
